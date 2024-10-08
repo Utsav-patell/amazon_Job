@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const fetchSchedules = async (jobId) => {
     if (!jobId || jobId==="") {
-        console.log("No job URLs provided.");
+        // console.log("No job URLs provided.");
         return [];
     }
 
@@ -65,7 +65,7 @@ const fetchSchedules = async (jobId) => {
             // console.log(scheduleData);
 
             if (!scheduleData || scheduleData.length === 0) {
-                console.log(`No schedules found for Job ID ${jobId}.`);
+                // console.log(`No schedules found for Job ID ${jobId}.`);
            
             }
 

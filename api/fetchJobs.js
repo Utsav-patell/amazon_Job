@@ -40,7 +40,7 @@ const fetchJobs = async () => {
 
     // Check if jobCards is empty
     if (jobCards.length === 0) {
-      console.log("No jobs found.");
+      // console.log("No jobs found.");
       return []; // Return an empty array or handle accordingly
     }
 
@@ -51,6 +51,8 @@ const fetchJobs = async () => {
       url: `https://hiring.amazon.ca/app#/jobDetail?jobId=${job.jobId}&locale=en-CA`
     }));
 console.log(jobUrls);
+var d = new Date();
+// console.log("Got Job Url",`${d.getMinutes()}:${d.getSeconds()}`);
     return jobUrls;
 
   } catch (error) {

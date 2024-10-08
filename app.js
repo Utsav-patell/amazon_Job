@@ -14,23 +14,24 @@ const main = async () => {
 
         // Validate jobUrls
         if (!Array.isArray(jobUrls) || jobUrls.length === 0) {
-            console.log("No job URLs available.");
+            // console.log("No job URLs available.");
             return null; // Return null if there are no jobs
         }
+       
 
-        const job = jobUrls[0]; // Get the first job URL
+        const job = jobUrls[Math.floor(Math.random() * jobUrls.length)]; // Get the first job URL
        
         const jobDetails = await fetchSchedules(job.jobId);
 
         // Validate jobDetails
         if (!Array.isArray(jobDetails) || jobDetails.length === 0) {
-            console.log("No schedule details available for job ID:", job.jobId);
+            // console.log("No schedule details available for job ID:", job.jobId);
             return null; // Return null if there are no schedules
         }
 
-        return jobDetails[0]; // Return the first schedule detail
+        return jobDetails[Math.floor(Math.random() * jobDetails.length)]; // Return the first schedule detail
     } catch (error) {
-        console.error('Error in main function:', error);
+        // console.error('Error in main function:', error);
         throw error; // Re-throw error to be caught in the route handler
     }
 };
@@ -40,6 +41,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/jobs', async (req, res) => {
+    var d = new Date();
     try {
         const jobData = await main();
 
@@ -52,14 +54,15 @@ app.get('/jobs', async (req, res) => {
         const scheduleId = jobData.scheduleId;
 
         const url = `https://hiring.amazon.ca/application/ca/?CS=true&jobId=${jobId}&locale=en-CA&scheduleId=${scheduleId}&ssoEnabled=1#/consent?CS=true&jobId=${jobId}&locale=en-CA&scheduleId=${scheduleId}&ssoEnabled=1`;
-        console.log("Going to URL ", url);
-        res.send(`Found
-        <script>
-            window.open('${url}', '_blank');
-        </script>
-    `);
+        console.log("Going to URL at", url,`${d.getMinutes()}:${d.getSeconds()}`);
+    res.redirect(url);
+        //     res.send(`Found
+    //     <script>
+    //         window.open('${url}', '_blank');
+    //     </script>
+    // `);
     } catch (error) {
-        console.error('Failed to fetch job data:', error);
+        // console.error('Failed to fetch job data:', error);
         res.status(500).send('Failed to fetch job data');
     }
 });
